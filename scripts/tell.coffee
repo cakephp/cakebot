@@ -30,6 +30,15 @@ module.exports = (robot) ->
      robot.brain.mergeData({messages: localstorage})
      return
 
+   robot.enter (msg) ->
+     # check for any pending message and deliver it
+     localstorage = robot.brain.data.messages
+     if localstorage[msg.message.user.name] != undefined
+       tellmessage = localstorage[msg.message.user.name]
+       delete localstorage[msg.message.user.name]
+       msg.send tellmessage
+     return
+
    robot.hear /./i, (msg) ->
      # just send the messages if they are available...
      localstorage = robot.brain.data.messages
