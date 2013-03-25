@@ -9,23 +9,52 @@
 #
 # Commands:
 #   hubot tell <username> <some message> - tell <username> <some message> next time they are present
+#   hubot message <username> - check wether <username> has undelivered message
 #
 # Author:
 #   christianchristensen
 
 module.exports = (robot) ->
-   localstorage = {}
+   if robot.brain.data.messages == undefined
+     robot.brain.data.messages = {}
+   localstorage = robot.brain.data.messages
+
    robot.respond /tell ([\w.-]*) (.*)/i, (msg) ->
+     localstorage = robot.brain.data.messages
      datetime = new Date()
      tellmessage = msg.match[1] + ": " + msg.message.user.name + " @ " + datetime.toTimeString() + " said: " + msg.match[2] + "\r\n"
      if localstorage[msg.match[1]] == undefined
        localstorage[msg.match[1]] = tellmessage
      else
        localstorage[msg.match[1]] += tellmessage
+     msg.send "sure, i'll tell " + msg.match[1] + " about it"
+     robot.brain.mergeData({messages: localstorage})
+     return
+
+   robot.respond /messages( )?([\w.-]*)/i, (msg) ->
+     localstorage = robot.brain.data.messages
+     if msg.match[2] == ''
+       tellmessage = "Whose message?"
+     else
+       if localstorage[msg.match[2]] != undefined
+         tellmessage = "I still have the message for " + msg.match[2]
+       else
+         tellmessage = "No message left for " + msg.match[2]
+     msg.send tellmessage
+     return
+
+   robot.enter (msg) ->
+     # check for any pending message and deliver it
+     localstorage = robot.brain.data.messages
+     if localstorage[msg.message.user.name] != undefined
+       tellmessage = localstorage[msg.message.user.name]
+       delete localstorage[msg.message.user.name]
+       msg.send tellmessage
      return
 
    robot.hear /./i, (msg) ->
      # just send the messages if they are available...
+     localstorage = robot.brain.data.messages
      if localstorage[msg.message.user.name] != undefined
        tellmessage = localstorage[msg.message.user.name]
        delete localstorage[msg.message.user.name]
