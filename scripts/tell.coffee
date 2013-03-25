@@ -14,18 +14,25 @@
 #   christianchristensen
 
 module.exports = (robot) ->
-   localstorage = {}
+   if robot.brain.data.messages == undefined
+     robot.brain.data.messages = {}
+   localstorage = robot.brain.data.messages
+
    robot.respond /tell ([\w.-]*) (.*)/i, (msg) ->
+     localstorage = robot.brain.data.messages
      datetime = new Date()
      tellmessage = msg.match[1] + ": " + msg.message.user.name + " @ " + datetime.toTimeString() + " said: " + msg.match[2] + "\r\n"
      if localstorage[msg.match[1]] == undefined
        localstorage[msg.match[1]] = tellmessage
      else
        localstorage[msg.match[1]] += tellmessage
+     msg.send "sure, i'll tell " + msg.match[1] + " about it"
+     robot.brain.mergeData({messages: localstorage})
      return
 
    robot.hear /./i, (msg) ->
      # just send the messages if they are available...
+     localstorage = robot.brain.data.messages
      if localstorage[msg.message.user.name] != undefined
        tellmessage = localstorage[msg.message.user.name]
        delete localstorage[msg.message.user.name]
