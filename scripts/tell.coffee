@@ -9,6 +9,7 @@
 #
 # Commands:
 #   hubot tell <username> <some message> - tell <username> <some message> next time they are present
+#   hubot message <username> - check wether <username> has undelivered message
 #
 # Author:
 #   christianchristensen
@@ -28,6 +29,18 @@ module.exports = (robot) ->
        localstorage[msg.match[1]] += tellmessage
      msg.send "sure, i'll tell " + msg.match[1] + " about it"
      robot.brain.mergeData({messages: localstorage})
+     return
+
+   robot.respond /messages( )?([\w.-]*)/i, (msg) ->
+     localstorage = robot.brain.data.messages
+     if msg.match[2] == ''
+       tellmessage = "Whose message?"
+     else
+       if localstorage[msg.match[2]] != undefined
+         tellmessage = "I still have the message for " + msg.match[2]
+       else
+         tellmessage = "No message left for " + msg.match[2]
+     msg.send tellmessage
      return
 
    robot.enter (msg) ->
