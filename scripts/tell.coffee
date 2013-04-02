@@ -22,11 +22,12 @@ module.exports = (robot) ->
    robot.respond /tell ([\w.-]*) (.*)/i, (msg) ->
      localstorage = robot.brain.data.messages
      datetime = new Date()
+     key = msg.match[1].toLowerCase() + msg.message.user.room
      tellmessage = msg.match[1] + ": " + msg.message.user.name + " @ " + datetime.toTimeString() + " said: " + msg.match[2] + "\r\n"
-     if localstorage[msg.match[1]] == undefined
-       localstorage[msg.match[1]] = tellmessage
+     if localstorage[key] == undefined
+       localstorage[key] = tellmessage
      else
-       localstorage[msg.match[1]] += tellmessage
+       localstorage[key] += tellmessage
      msg.send "sure, i'll tell " + msg.match[1] + " about it"
      robot.brain.mergeData({messages: localstorage})
      return
@@ -36,7 +37,8 @@ module.exports = (robot) ->
      if msg.match[2] == ''
        tellmessage = "Whose message?"
      else
-       if localstorage[msg.match[2]] != undefined
+       key = msg.match[2].toLowerCase() + msg.message.user.room
+       if localstorage[key] != undefined
          tellmessage = "I still have the message for " + msg.match[2]
        else
          tellmessage = "No message left for " + msg.match[2]
@@ -44,19 +46,19 @@ module.exports = (robot) ->
      return
 
    robot.enter (msg) ->
-     # check for any pending message and deliver it
      localstorage = robot.brain.data.messages
-     if localstorage[msg.message.user.name] != undefined
-       tellmessage = localstorage[msg.message.user.name]
-       delete localstorage[msg.message.user.name]
+     key = msg.message.user.name.toLowerCase() + msg.message.user.room
+     if localstorage[key] != undefined
+       tellmessage = localstorage[key]
+       delete localstorage[key]
        msg.send tellmessage
      return
 
    robot.hear /./i, (msg) ->
-     # just send the messages if they are available...
      localstorage = robot.brain.data.messages
-     if localstorage[msg.message.user.name] != undefined
-       tellmessage = localstorage[msg.message.user.name]
-       delete localstorage[msg.message.user.name]
+     key = msg.message.user.name.toLowerCase() + msg.message.user.room
+     if localstorage[key] != undefined
+       tellmessage = localstorage[key]
+       delete localstorage[key]
        msg.send tellmessage
      return
