@@ -5,7 +5,6 @@
 #   ~book - Responds with a link to the book
 #   ~book( .*) - Responds with a book search link
 #
-#
 # Author:
 #   josegonzalez
 
