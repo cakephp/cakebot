@@ -28,7 +28,6 @@
     "hubot-shipit": "^0.2.0",
     "hubot-tell": "^1.2.4",
     "hubot-youtube": "^1.0.2",
-    "optparse": "^1.0.5",
-    "ntwitter": "^0.5.0"
+    "optparse": "^1.0.5"
   }
 }
