@@ -8,6 +8,8 @@
 #   None
 #
 
+mysql = require('mysql');
+
 # define all channels
 channels = {
   '#cakephp':        1,
@@ -18,7 +20,6 @@ channels = {
   'cakebot-dev':     6,
   'unknown':         7,
 }
-
 
 # setup callbacks and helper methods
 onConnect = (err, connection) ->
@@ -35,8 +36,6 @@ channelId = (room) ->
 # setup mysql client
 DATABASE_URL = process.env.DATABASE_URL || 'mysql://username:password@localhost:3306/cakebot'
 DATABASE_URL = DATABASE_URL + "?connectionLimit=50"
-
-mysql = require('mysql');
 pool  = mysql.createPool(DATABASE_URL);
 pool.getConnection(onConnect)
 
