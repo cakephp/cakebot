@@ -1,6 +1,12 @@
 # Description:
 #   Send all chat logs to Elastic Search
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
 
 # Setup Elastic Search Client
 ElasticSearchClient = require('elasticsearchclient')
