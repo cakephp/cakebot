@@ -14,8 +14,6 @@
 #   josegonzalez
 #
 
-url = require("url")
-
 module.exports = (robot) ->
   robot.respond /rollover/i, (msg) ->
     msg.send "/me plays dead"
