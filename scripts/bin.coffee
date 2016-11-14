@@ -15,8 +15,8 @@
 #
 
 module.exports = (robot) ->
-  robot.hear /~bin/i, (res) ->
-    res.reply "Please paste some code in here ----> https://gist.github.com/ then post the url in the channel."
+  robot.hear /~bin/i, (msg) ->
+    msg.reply "Please paste some code in here ----> https://gist.github.com/ then post the url in the channel."
 
-  robot.hear /~gist/i, (res) ->
-    res.reply "Please paste some code in here ----> https://gist.github.com/ then post the url in the channel."
+  robot.hear /~gist/i, (msg) ->
+    msg.reply "Please paste some code in here ----> https://gist.github.com/ then post the url in the channel."

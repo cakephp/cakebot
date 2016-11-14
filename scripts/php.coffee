@@ -15,9 +15,9 @@
 #
 
 module.exports = (robot) ->
-  robot.hear /~php( .*)?/i, (res) ->
-    if res.match.input == '~php'
-      res.reply "Please specify a php function to lookup"
+  robot.hear /~php( .*)?/i, (msg) ->
+    if msg.match.input == '~php'
+      msg.reply "Please specify a php function to lookup"
     else
-      func = res.match[1].trim()
-      res.reply "For more info on #{func} go to https://secure.php.net/#{func}"
+      func = msg.match[1].trim()
+      msg.reply "For more info on #{func} go to https://secure.php.net/#{func}"

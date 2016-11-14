@@ -16,9 +16,9 @@
 #
 
 module.exports = (robot) ->
-  robot.hear /~google( .*)?/i, (res) ->
-    if res.match.input == '~google'
-      res.reply "Google is a great place to find more information on this subject ( https://google.com )"
+  robot.hear /~google( .*)?/i, (msg) ->
+    if msg.match.input == '~google'
+      msg.reply "Google is a great place to find more information on this subject ( https://google.com )"
     else
-      query = res.match[1].trim().split(' ').join('%20')
-      res.reply "To see your query go here: https://www.google.com/search?q=#{query}"
+      query = msg.match[1].trim().split(' ').join('%20')
+      msg.reply "To see your query go here: https://www.google.com/search?q=#{query}"

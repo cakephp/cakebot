@@ -16,9 +16,9 @@
 #
 
 module.exports = (robot) ->
-  robot.hear /~book( .*)?/i, (res) ->
-    if res.match.input == '~book'
-      res.reply "Book is http://book.cakephp.org the answer to life, the universe and all your bun making needs."
+  robot.hear /~book( .*)?/i, (msg) ->
+    if msg.match.input == '~book'
+      msg.reply "Book is http://book.cakephp.org the answer to life, the universe and all your bun making needs."
     else
-      query = res.match[1].trim().split(' ').join('+')
-      res.reply "http://book.cakephp.org/search/#{query}"
+      query = msg.match[1].trim().split(' ').join('+')
+      msg.reply "http://book.cakephp.org/search/#{query}"
