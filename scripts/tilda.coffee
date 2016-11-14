@@ -1,5 +1,5 @@
 # Description:
-#   Responds to tilda commands
+#   Responds to tilda (~) and bang (!) commands
 #
 # Dependencies:
 #   None
@@ -8,18 +8,20 @@
 #   None
 #
 # Commands:
-#   ~api         - Responds with a link to api.cakephp.org
-#   ~bin         - Responds with a link to gist.github.com
-#   ~book        - Responds with a link to the book
-#   ~book (.*)   - Responds with a book search link
-#   ~gist        - Responds with a link to gist.github.com
-#   ~google      - Responds with a link to google
-#   ~google (.*) - Responds with a google search link
-#   ~issues      - Responds with a link to the issue tracker
-#   ~issues( .*) - Responds with a book search link
-#   ~php (.*)    - Responds with a php function link
-#   ~slap        - Slaps you
-#   ~slap        - Slaps a user
+#   ~api                        - Responds with a link to api.cakephp.org
+#   ~bin                        - Responds with a link to gist.github.com
+#   ~book                       - Responds with a link to the book
+#   ~book (.*)                  - Responds with a book search link
+#   ~gist                       - Responds with a link to gist.github.com
+#   ~google                     - Responds with a link to google
+#   ~google (.*)                - Responds with a google search link
+#   ~issues                     - Responds with a link to the issue tracker
+#   ~issues( .*)                - Responds with a book search link
+#   ~php (.*)                   - Responds with a php function link
+#   ~slap                       - Slaps you
+#   ~slap                       - Slaps a user
+#   ~tell ([^\s\\]+) about (.*) - Tells a user about a topic
+#   ~([^\s\\]+)                 - Outputs the contents of a topic
 #
 # Todo:
 #   ~api (.*) - Responds with a link to a class that matched via fuzzy search
@@ -28,10 +30,23 @@
 #   josegonzalez
 #
 
+mysql = require('mysql');
+
+# setup callbacks and helper methods
+onConnect = (err, connection) ->
+  if (err)
+    console.log('Unable to connect: ' + err)
+
+# setup mysql client
+DATABASE_URL = process.env.DATABASE_URL || 'mysql://username:password@localhost:3306/cakebot'
+DATABASE_URL = DATABASE_URL + "?connectionLimit=10"
+pool  = mysql.createPool(DATABASE_URL);
+pool.getConnection(onConnect)
+
 module.exports = (robot) ->
-  robot.hear /^~([\w_-]+)( .*)?/i, (msg) ->
-    command = msg.match[1]
-    text = msg.match[2]
+  robot.hear /^([~!])([^\s\\]+)( .*)?/i, (msg) ->
+    command = msg.match[2]
+    text = msg.match[3]
     text = text.trim() if text?
 
     if command == 'api'
@@ -85,3 +100,25 @@ module.exports = (robot) ->
         msg.send "/me slaps #{text} with a large trout"
       else
         msg.send "/me slaps #{msg.message.user.name} for being a dumbass (Copyrighted by ADmad)"
+    else
+      tell = null
+      username = null
+      if command == 'tell' and text?
+        matches = text.match /([^\s\\]+) about (.*)/i
+        username = matches[1] if matches
+        tell = matches[2] if matches
+      else
+        tell = "#{command}"
+
+      if tell
+        getTell = (err, results) ->
+          prefix = ""
+          prefix = "#{username}: " if username
+
+          if err
+            msg.send "Unable to retrieve tell"
+          else if results.length == 0
+            msg.send "#{prefix}I don't know enough about #{tell}"
+          else
+            msg.send "#{prefix}#{results[0].keyword} is #{results[0].message}"
+        pool.query('SELECT * FROM tells WHERE keyword = ? LIMIT 1', [tell], getTell)
