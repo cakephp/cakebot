@@ -1,5 +1,13 @@
 # Description:
 #   A simple interaction with the built in HTTP Daemon
+#
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
+
 spawn = require('child_process').spawn
 
 module.exports = (robot) ->

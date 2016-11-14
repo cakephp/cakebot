@@ -1,8 +1,15 @@
 # Description:
 #   Interacts with the Google Maps API.
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
 # Commands:
 #   map me <query> - Returns a map view of the area returned by `query`.
+#
 
 module.exports = (robot) ->
 

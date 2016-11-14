@@ -1,12 +1,19 @@
 # Description:
 #   Responds to issue-related commands
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
 # Commands:
 #   ~issues - Responds with a link to the issue tracker
 #   ~issues( .*) - Responds with a book search link
 #
 # Author:
 #   josegonzalez
+#
 
 module.exports = (robot) ->
   robot.hear /~issues( .*)?/i, (res) ->

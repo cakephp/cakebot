@@ -1,11 +1,18 @@
 # Description:
 #   Responds to php-related commands
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
 # Commands:
 #   ~php( .*) - Responds with a php function link
 #
 # Author:
 #   josegonzalez
+#
 
 module.exports = (robot) ->
   robot.hear /~php( .*)?/i, (res) ->

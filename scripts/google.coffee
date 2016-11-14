@@ -1,12 +1,19 @@
 # Description:
 #   Responds to google-related commands
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
 # Commands:
 #   ~google - Responds with a link to google
 #   ~google( .*) - Responds with a google search link
 #
 # Author:
 #   josegonzalez
+#
 
 module.exports = (robot) ->
   robot.hear /~google( .*)?/i, (res) ->

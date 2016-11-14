@@ -1,11 +1,18 @@
 # Description:
 #   Responds to bin-related commands
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
 # Commands:
 #   ~bin - Responds with a link to gist.github.com
 #
 # Author:
 #   josegonzalez
+#
 
 module.exports = (robot) ->
   robot.hear /~bin/i, (res) ->

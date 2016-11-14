@@ -1,6 +1,12 @@
 # Description:
 #   Assign roles to people you're chatting with
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
 # Commands:
 #   <user> is a badass guitarist - assign a role to a user
 #   <user> is not a badass guitarist - remove a role from a user

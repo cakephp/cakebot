@@ -1,6 +1,12 @@
 # Description:
 #   Responds to api-related commands
 #
+# Dependencies:
+#   None
+#
+# Configuration:
+#   None
+#
 # Commands:
 #   ~api - Responds with a link to api.cakephp.org
 #
@@ -9,6 +15,7 @@
 #
 # Author:
 #   josegonzalez
+#
 
 module.exports = (robot) ->
   robot.hear /~api( .*)?/i, (res) ->
