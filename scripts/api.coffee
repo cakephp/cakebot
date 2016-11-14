@@ -22,5 +22,5 @@ module.exports = (robot) ->
     if msg.match.input == '~api'
       msg.reply "This API is an incredible resource which you can find at http://api.cakephp.org."
     else
-      @robots.logger.warning "Not yet implemented"
+      robot.logger.warning "Not yet implemented"
       # This API may have this at $url
