@@ -16,7 +16,7 @@
 #
 
 module.exports = (robot) ->
-  robot.hear /~book( .*)?/i, (msg) ->
+  robot.hear /^~book( .*)?/i, (msg) ->
     if msg.match.input == '~book'
       msg.reply "Book is http://book.cakephp.org the answer to life, the universe and all your bun making needs."
     else

@@ -16,7 +16,7 @@
 #
 
 module.exports = (robot) ->
-  robot.hear /~google( .*)?/i, (msg) ->
+  robot.hear /^~google( .*)?/i, (msg) ->
     if msg.match.input == '~google'
       msg.reply "Google is a great place to find more information on this subject ( https://google.com )"
     else

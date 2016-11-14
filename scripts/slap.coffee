@@ -15,7 +15,7 @@
 #
 
 module.exports = (robot) ->
-  robot.hear /~slap( .*)?/i, (msg) ->
+  robot.hear /^~slap( .*)?/i, (msg) ->
     if msg.match.input == '~slap'
       msg.send "/me slaps #{msg.message.user.name} for being a dumbass (Copyrighted by ADmad)"
     else

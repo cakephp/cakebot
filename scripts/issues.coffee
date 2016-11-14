@@ -16,7 +16,7 @@
 #
 
 module.exports = (robot) ->
-  robot.hear /~issues( .*)?/i, (msg) ->
+  robot.hear /^~issues( .*)?/i, (msg) ->
     if msg.match.input == '~issues'
       msg.reply "Submit your issue here: https://github.com/cakephp/cakephp/issues"
     else

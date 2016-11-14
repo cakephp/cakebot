@@ -15,7 +15,7 @@
 #
 
 module.exports = (robot) ->
-  robot.hear /~php( .*)?/i, (msg) ->
+  robot.hear /^~php( .*)?/i, (msg) ->
     if msg.match.input == '~php'
       msg.reply "Please specify a php function to lookup"
     else
