@@ -44,6 +44,10 @@ module.exports = (robot) ->
   robot.hear /.*$/i, (msg) ->
     return if typeof msg.message.user.id == 'undefined'
 
+    if not msg.message.user.room
+      console.log("Error logging message from user: " + msg.message.user)
+      return
+
     log = {
       channel_id  : channelId(msg.message.user.room.toLowerCase()),
       username    : msg.message.user.name
