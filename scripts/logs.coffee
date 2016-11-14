@@ -27,7 +27,7 @@ onConnect = (err, connection) ->
 
 channelId = (room) ->
   if channels.hasOwnProperty(room)
-    channel_id = obj[room]
+    channel_id = channels[room]
   else
     channel_id = 7
   return channel_id
