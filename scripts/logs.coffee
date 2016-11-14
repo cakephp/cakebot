@@ -1,5 +1,5 @@
 # Description:
-#   Send all chat logs to Elastic Search
+#   Send all chat logs to MySQL
 #
 # Dependencies:
 #   None
@@ -8,107 +8,51 @@
 #   None
 #
 
-# Setup Elastic Search Client
-ElasticSearchClient = require('elasticsearchclient')
-elasticSearchClient = new ElasticSearchClient({
-    host: "127.0.0.1",
-    port: 9200
-})
-
-# Index configuration
-config = {
-    number_of_shards: 4,
-    number_of_replicas: 1,
-    analysis: {
-        analyzer: {
-            indexAnalyzer: {
-                type: 'custom',
-                tokenizer: 'standard',
-                filter: ['lowercase', 'mySnowball']
-            }
-            searchAnalyzer: {
-                type: 'custom',
-                tokenizer: 'standard',
-                filter: ['standard', 'lowercase', 'mySnowball']
-            }
-        },
-        filter: {
-            mySnowball: {
-                type: 'snowball',
-                language: 'english'
-            }
-        }
-    }
+# define all channels
+channels = {
+  '#cakephp':        1,
+  'cakebot':         2,
+  '#cakephp-fr':     3,
+  '#cakephp-bakery': 4,
+  '#cakephp-nl':     5,
+  'cakebot-dev':     6,
+  'unknown':         7,
 }
 
-# Generic onError callback
-onError = (data) ->
-    console.log JSON.parse(data)
 
-# Generic onDone callback
-onDone = ->
-    console.log "done"
+# setup callbacks and helper methods
+onConnect = (err, connection) ->
+  if (err)
+    console.log('Unable to connect: ' + err)
 
-# Generic onData callback
-onData = (data) ->
-    console.log JSON.parse(data)
+channelId = (room) ->
+  if channels.hasOwnProperty(room)
+    channel_id = obj[room]
+  else
+    channel_id = 7
+  return channel_id
 
-# Create index
-elasticSearchClient
-    .createIndex("messages", config)
-    .on('data', onData)
-    .on('done', onDone)
-    .on('error', onError)
-    .exec()
+# setup mysql client
+DATABASE_URL = process.env.DATABASE_URL || 'mysql://username:password@localhost:3306/cakebot'
+DATABASE_URL = DATABASE_URL + "?connectionLimit=50"
 
-# Create mapping "entry" to ”messages" index
-elasticSearchClient
-    .putMapping("messages", "entry", {
-        entry: {
-          properties: {
-            Channel: {
-              properties: {
-                room: {
-                  type: 'string',
-                  include_in_all: true,
-                  index: "not_analyzed"
-                },
-                user: {
-                    type: 'string',
-                    include_in_all: true
-                },
-                message: {
-                    type: 'string',
-                    include_in_all: true
-                },
-                timestamp: {
-                    type: 'date',
-                    include_in_all: true,
-                    format: "yyyy-MM-dd"
-                }
-              }
-            }
-          }
-        }
-    })
-    .on('data', onData)
-    .on('done', onDone)
-    .on('error', onError)
-    .exec()
+mysql = require('mysql');
+pool  = mysql.createPool(DATABASE_URL);
+pool.getConnection(onConnect)
 
 module.exports = (robot) ->
-    robot.hear /.*$/i, (msg) ->
-        return if typeof msg.message.user.id == 'undefined'
+  robot.hear /.*$/i, (msg) ->
+    return if typeof msg.message.user.id == 'undefined'
 
-        elasticSearchClient
-            .index("messages", "entry", {
-              Channel: {
-                room        : msg.message.user.room,
-                user        : msg.message.user.name
-                message     : msg.message.text
-                timestamp   : new Date
-              }
-            })
-            .on('error', onError)
-            .exec()
+    log = {
+      channel_id  : channelId(msg.message.user.room.toLowerCase()),
+      username    : msg.message.user.name
+      text        : msg.message.text
+      created     : new Date
+    }
 
+    onDone = (err, result) ->
+      if (err)
+        console.log('Unable to insert message (' + log + '): ' + err)
+
+    query = pool.query('INSERT INTO logs SET ?', log, onDone)
