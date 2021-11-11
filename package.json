@@ -1,6 +1,6 @@
 {
   "name": "hosted-hubot",
-  "version": "2.2.0",
+  "version": "3.3.2",
   "author": "GitHub Inc.",
   "keywords": "github hubot campfire bot",
   "description": "A simple helpful Robot for your Company",
@@ -15,19 +15,19 @@
     "url": "http://github.com/github/hubot.git"
   },
   "dependencies": {
-    "hubot": "^2.19.0",
-    "hubot-google-images": "^0.2.6",
-    "hubot-google-translate": "^0.2.0",
-    "hubot-irc": "^0.2.9",
-    "hubot-pugme": "^0.1.0",
-    "hubot-redis-brain": "0.0.3",
-    "hubot-rules": "^0.1.1",
-    "hubot-scripts": "^2.17.2",
-    "hubot-seen": "^0.2.3",
-    "hubot-shipit": "^0.2.0",
+    "hubot": "^3.3.2",
+    "hubot-google-images": "^0.2.7",
+    "hubot-google-translate": "^0.2.1",
+    "hubot-slack": "^4.9.0",
+    "hubot-pugme": "^0.1.1",
+    "hubot-redis-brain": "1.0.0",
+    "hubot-rules": "^1.0.0",
+    "hubot-scripts": "^2.17.1",
+    "hubot-seen": "^2.0.0",
+    "hubot-shipit": "^0.2.1",
     "hubot-tell": "^1.2.4",
-    "hubot-youtube": "^1.0.2",
-    "mysql": "^2.12.0",
+    "hubot-youtube": "^1.2.2",
+    "mysql": "^2.18.1",
     "optparse": "^1.0.5"
   }
 }
