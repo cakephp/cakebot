@@ -4,14 +4,14 @@ This is a version of GitHub's Campfire bot, hubot. He's pretty cool.
 
 This version is designed to be deployed on [Heroku][heroku].
 
-[heroku]: http://www.heroku.com
+[heroku]: https://www.heroku.com
 
 ## Playing with Hubot
 
 You'll need to install the necessary dependencies for hubot. All of
 those dependencies are provided by [npm][npmjs].
 
-[npmjs]: http://npmjs.org
+[npmjs]: https://npmjs.org
 
 ## HTTP Listener
 
@@ -128,7 +128,7 @@ If you would like to deploy to either a UNIX operating system or Windows.
 Please check out the [deploying hubot onto UNIX][deploy-unix] and
 [deploying hubot onto Windows][deploy-windows] wiki pages.
 
-[heroku-node-docs]: http://devcenter.heroku.com/articles/node-js
+[heroku-node-docs]: https://devcenter.heroku.com/articles/node-js
 [deploy-heroku]: https://github.com/github/hubot/wiki/Deploying-Hubot-onto-Heroku
 [deploy-unix]: https://github.com/github/hubot/wiki/Deploying-Hubot-onto-UNIX
 [deploy-windows]: https://github.com/github/hubot/wiki/Deploying-Hubot-onto-Windows
