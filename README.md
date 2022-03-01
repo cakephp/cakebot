@@ -11,7 +11,7 @@ This version is designed to be deployed on [Heroku][heroku].
 You'll need to install the necessary dependencies for hubot. All of
 those dependencies are provided by [npm][npmjs].
 
-[npmjs]: https://npmjs.org
+[npmjs]: https://www.npmjs.com/
 
 ## HTTP Listener
 
