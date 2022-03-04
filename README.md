@@ -77,7 +77,7 @@ want hubot to have.
 Adapters are the interface to the service you want your hubot to run on. This
 can be something like Campfire or IRC. There are a number of third party
 adapters that the community have contributed. Check the
-[hubot wiki][hubot-wiki] for the available ones.
+[hubot wiki][hubot-docs] for the available ones.
 
 If you would like to run a non-Campfire or shell adapter you will need to add
 the adapter package as a dependency to the `package.json` file in the
@@ -90,7 +90,7 @@ then run hubot with the adapter.
 
 Where `<adapter>` is the name of your adapter without the `hubot-` prefix.
 
-[hubot-wiki]: https://github.com/github/hubot/wiki
+[hubot-docs]: https://hubot.github.com/docs/
 
 ## hubot-scripts
 
@@ -129,15 +129,15 @@ Please check out the [deploying hubot onto UNIX][deploy-unix] and
 [deploying hubot onto Windows][deploy-windows] wiki pages.
 
 [heroku-node-docs]: https://devcenter.heroku.com/articles/node-js
-[deploy-heroku]: https://github.com/github/hubot/wiki/Deploying-Hubot-onto-Heroku
-[deploy-unix]: https://github.com/github/hubot/wiki/Deploying-Hubot-onto-UNIX
-[deploy-windows]: https://github.com/github/hubot/wiki/Deploying-Hubot-onto-Windows
+[deploy-heroku]: https://hubot.github.com/docs/deploying/heroku/
+[deploy-unix]: https://hubot.github.com/docs/deploying/unix/
+[deploy-windows]: https://hubot.github.com/docs/deploying/windows/
 
 ## Campfire Variables
 
 If you are using the Campfire adapter you will need to set some environment
 variables. Refer to the documentation for other adapters and the configuraiton
-of those, links to the adapters can be found on the [hubot wiki][hubot-wiki].
+of those, links to the adapters can be found on the [hubot docs][hubot-docs].
 
 Create a separate Campfire user for your bot and get their token from the web
 UI.
@@ -155,7 +155,7 @@ Add the subdomain hubot should connect to. If you web URL looks like
 
     % heroku config:add HUBOT_CAMPFIRE_ACCOUNT="mysubdomain"
 
-[hubot-wiki]: https://github.com/github/hubot/wiki
+[hubot-docs]: https://hubot.github.com/docs/
 
 ## Restart the bot
 
