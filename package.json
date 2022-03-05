@@ -7,12 +7,12 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/github/hubot/raw/master/LICENSE"
+      "url": "https://github.com/hubotio/hubot/blob/master/LICENSE.md"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/github/hubot.git"
+    "url": "https://github.com/hubotio/hubot.git"
   },
   "dependencies": {
     "hubot": "^3.3.2",
