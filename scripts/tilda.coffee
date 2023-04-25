@@ -54,7 +54,7 @@ module.exports = (robot) ->
         robot.logger.warning "Not yet implemented"
         # This API may have this at $url
       else
-        msg.reply "This API is an incredible resource which you can find at http://api.cakephp.org."
+        msg.reply "This API is an incredible resource which you can find at https://api.cakephp.org."
     else if command == 'bin'
       msg.reply "Please paste some code in here ----> https://gist.github.com/ then post the url in the channel."
     else if command == 'gist'
@@ -62,9 +62,9 @@ module.exports = (robot) ->
     else if command == 'book'
       if text?
         query = text.split(' ').join('+')
-        msg.reply "http://book.cakephp.org/search/#{query}"
+        msg.reply "https://book.cakephp.org/search/#{query}"
       else
-        msg.reply "Book is http://book.cakephp.org the answer to life, the universe and all your bun making needs."
+        msg.reply "Book is https://book.cakephp.org the answer to life, the universe and all your bun making needs."
     else if command == 'google'
       if text?
         query = text.split(' ').join('%20')
